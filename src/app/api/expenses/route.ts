@@ -3,7 +3,9 @@ import { prisma } from "@/lib/prismadb";
 
 export async function GET() {
   try {
-    const expenses = await prisma.expense.findMany();
+    const expenses = await prisma.expense.findMany({
+      orderBy: { createdAt: "desc" },
+    });
     return NextResponse.json(expenses);
   } catch (error: any) {
     console.error("GET ERROR:", error);
@@ -14,14 +16,13 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    console.log("BODY:", body);
-
-    const { title, amount } = body;
+    const { title, amount, category } = body;
 
     const expense = await prisma.expense.create({
       data: {
         title,
         amount: Number(amount),
+        category,
       },
     });
 
