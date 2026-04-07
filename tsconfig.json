@@ -13,14 +13,13 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
+    "baseUrl": ".",  // changed from "src" to project root
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": ["*"]  // now @/lib/prismadb will correctly map to root/lib/prismadb.ts
+    },
+    "plugins": [
+      { "name": "next" }
+    ]
   },
   "include": [
     "next-env.d.ts",
